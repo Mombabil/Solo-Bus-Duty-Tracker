@@ -141,10 +141,22 @@ body #routes-list {
   padding: 10px;
   border-radius: 4px;
 }
+body .temporary-routes-list {
+  width: 90%;
+  max-height: 400px;
+  overflow: auto;
+  z-index: 1000;
+  background: hsl(235, 62%, 33%);
+  color: hsl(0, 0%, 100%);
+  font-family: "Inter", sans-serif;
+  padding: 10px;
+  border-radius: 4px;
+}
 body .route-item {
   padding: 8px;
   cursor: pointer;
   background: hsl(235, 40%, 45%);
+  color: hsl(0, 0%, 100%);
 }
 body .route-item h3, body .route-item p {
   margin: 0 0 4px 0;
@@ -159,6 +171,10 @@ body .route-item #routeItemDetail {
 }
 body .route-item .show-route-item-detail {
   display: block !important;
+}
+body .route-item a {
+  text-decoration: none;
+  color: hsl(235, 78%, 13%);
 }
 body #route-info {
   background: hsl(109, 71%, 38%);

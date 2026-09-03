@@ -21,10 +21,22 @@ body{
         border-radius: 4px;
     }
 
+    .temporary-routes-list{
+        width: 90%;
+        max-height: 400px;
+        overflow: auto;
+        z-index: 1000;
+        background: $bg-panel;
+        color: $text-main;
+        font-family: "Inter", sans-serif;
+        padding: 10px;
+        border-radius: 4px;
+    }
     .route-item {
         padding: 8px;
         cursor: pointer;
         background: $border-soft;
+        color: $text-main;
         h3, p{
             margin: 0 0 4px 0;
         }
@@ -38,6 +50,10 @@ body{
         }
         .show-route-item-detail{
             display: block !important;
+        }
+        a{
+            text-decoration: none;
+            color: $bg-main;
         }
     }
     #route-info {
