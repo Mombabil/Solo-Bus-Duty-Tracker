@@ -22,8 +22,13 @@ body{
     }
 
     .temporary-routes-list{
+        .category-route-title{
+            text-align: center;
+            text-transform: uppercase;
+            color: $waiting;
+        }
         width: 90%;
-        max-height: 400px;
+        // max-height: 400px;
         overflow: auto;
         z-index: 1000;
         background: $bg-panel;
