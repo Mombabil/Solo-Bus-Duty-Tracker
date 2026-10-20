@@ -141,12 +141,12 @@ body #routes-list {
   padding: 10px;
   border-radius: 4px;
 }
-body .temporary-routes-list .category-route-title {
+body .listRoad h3 {
   text-align: center;
   text-transform: uppercase;
   color: hsl(46, 91%, 50%);
 }
-body .temporary-routes-list {
+body .listRoad {
   width: 90%;
   overflow: auto;
   z-index: 1000;
@@ -156,29 +156,39 @@ body .temporary-routes-list {
   padding: 10px;
   border-radius: 4px;
 }
-body .route-item {
+body .road-item {
   padding: 8px;
   cursor: pointer;
   background: hsl(235, 40%, 45%);
   color: hsl(0, 0%, 100%);
-}
-body .route-item h3, body .route-item p {
-  margin: 0 0 4px 0;
-}
-body .route-item .route-item-stops {
-  width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 60% 40%;
   justify-content: space-between;
+  align-items: center;
 }
-body .route-item #routeItemDetail {
-  display: none;
+body .road-item .divButtons {
+  text-align: right;
 }
-body .route-item .show-route-item-detail {
-  display: block !important;
+body .road-item h3 {
+  margin: 0 0 4px 0;
+  font-size: 0.7em;
+  text-align: left;
+  font-family: "Inter", sans-serif;
 }
-body .route-item a {
+body .road-item button {
+  font-size: 0.8em;
+  margin: 0 3px;
+  border: none;
+}
+body .road-item a {
   text-decoration: none;
   color: hsl(235, 78%, 13%);
+}
+body .road-item .morningButton {
+  background: hsl(109, 71%, 38%);
+}
+body .road-item .eveningButton {
+  background: hsl(46, 91%, 50%);
 }
 body #route-info {
   background: hsl(109, 71%, 38%);
