@@ -1,6 +1,6 @@
 async function loadDatas() {
   try {
-    const response = await fetch("../data.json");
+    const response = await fetch("./data.json");
 
     if (!response.ok) {
       throw new Error("Impossible de charger le fichier JSON");
