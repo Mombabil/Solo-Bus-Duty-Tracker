@@ -1,0 +1,75 @@
+@import "./settings";
+
+.phone-enterprise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 90%;
+  /* Catégories */
+  .phone-category {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    overflow: hidden;
+    background: $bg-secondary;
+  }
+  
+  /* Titre cliquable */
+  .phone-category summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    cursor: pointer;
+    list-style: none;
+    background: $bg-panel;
+    color: $text-main;
+    user-select: none;
+  }
+  
+  /* Masquer le marqueur natif */
+  .phone-category summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .phone-category summary h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  /* Icône + / − */
+  .accordion-icon::before {
+    content: "+";
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  
+  .phone-category[open] .accordion-icon::before {
+    content: "−";
+  }
+  
+  /* Feedback clavier */
+  .phone-category summary:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: -3px;
+  }
+  .list-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    color: $text-secondary;
+    font-family: "Inter", sans-serif;
+    a{
+        text-decoration: none;
+        color: $waiting;
+        font-weight: bold;
+        font-family: "Inter", sans-serif;
+    }
+  }
+}
+
+.infos{
+    font-family: "Orbitron", sans-serif;
+    color: $waiting;
+}
+
