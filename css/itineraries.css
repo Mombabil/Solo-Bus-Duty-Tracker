@@ -162,12 +162,13 @@ body .road-item {
   background: hsl(235, 40%, 45%);
   color: hsl(0, 0%, 100%);
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 55% 45%;
   justify-content: space-between;
   align-items: center;
 }
 body .road-item .divButtons {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
 }
 body .road-item h3 {
   margin: 0 0 4px 0;
