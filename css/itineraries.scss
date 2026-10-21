@@ -2,24 +2,6 @@
 
 body{
     position: relative;
-    #toolbar {
-        z-index: 1000;
-        background: white;
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-    #routes-list {
-        width: 90%;
-        max-height: 400px;
-        overflow: auto;
-        z-index: 1000;
-        background: $bg-panel;
-        color: $text-main;
-        font-family: "Inter", sans-serif;
-        padding: 10px;
-        border-radius: 4px;
-    }
 
     .listRoad{
         h3{
@@ -43,11 +25,12 @@ body{
         background: $border-soft;
         color: $text-main;
         display: grid;
-        grid-template-columns: 55% 45%;
+        grid-template-columns: 65% 35%;
         justify-content: space-between;
         align-items: center;
         .divButtons{
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             justify-content: space-between;
         }
 
@@ -66,25 +49,30 @@ body{
             text-decoration: none;
             color: $bg-main;
         }
+        .leftButtons, .rightButtons {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
         .morningButton{
             background: $service;
         }
         .eveningButton{
             background: $waiting;
         }
+        span{
+            font-size: 0.6em;
+        }
     }
-    #route-info {
-        background: $service;
-        color: $text-main;
-        width: 90%;
-        text-align: center;
-        padding: 8px 12px;
-        border-radius: 4px;
-        font-family: "Orbitron", sans-serif;
-        font-size: 0.9em;
-    }
-    #map{
-        height: 500px;
-        width: 100%;
+    .occasionalListRoad{
+        .road-item{
+            grid-template-columns: 50% 50%;
+            .divButtons{
+                grid-template-columns: 1fr;
+            }
+        }
+        button{
+            width: 100%;
+        }
     }
 }

@@ -21,6 +21,12 @@ async function loadDatas() {
 
       const divButtons = document.createElement("div");
       divButtons.className = "divButtons";
+
+      const leftButtons = document.createElement("div");
+      leftButtons.className = "leftButtons";
+      const rightButtons = document.createElement("div");
+      rightButtons.className = "rightButtons";
+
       data.linkGmap.map((d) => {
         const itemButton = document.createElement("button");
         const linkItemButton = document.createElement("a");
@@ -38,10 +44,24 @@ async function loadDatas() {
         }
 
         itemButton.appendChild(linkItemButton);
-        divButtons.appendChild(itemButton);
-      });
 
+        if (itemButton.className === "morningButton") {
+          leftButtons.appendChild(itemButton);
+        } else if (itemButton.className === "eveningButton") {
+          rightButtons.appendChild(itemButton);
+        } else {
+          divButtons.appendChild(itemButton);
+        }
+
+        divButtons.appendChild(leftButtons);
+        divButtons.appendChild(rightButtons);
+      });
       div.appendChild(divButtons);
+
+      const commentaire = document.createElement("span");
+      commentaire.textContent = data.commentaire;
+
+      div.appendChild(commentaire);
 
       if (data.categorie === "Scolaire") {
         scholarListRoad.appendChild(div);
