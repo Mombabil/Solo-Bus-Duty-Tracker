@@ -52,5 +52,11 @@
     "categorie": "Occasionnel",
     "linkGmap": [{"nom": "De MFR Mornand", "link": "https://www.google.fr/maps/dir/Maison+Familiale+Rurale+du+Forez,+Mar%C3%A9chaux,+42600+Mornand-en-Forez/45.7507748,4.3192481/@45.7044009,4.2195738,25788m/data=!3m1!1e3!4m10!4m9!1m5!1m1!1s0x47f43765a9476577:0xd6229711ad18951d!2m2!1d4.1208666!2d45.6730083!1m0!3e0!5i1?entry=ttu&g_ep=EgoyMDI2MTAxOC4wIKXMDSoASAFQAw%3D%3D"}],
     "commentaire": ""
+  },
+  {
+    "nom": "Opéra Saint-Etienne",
+    "categorie": "Occasionnel",
+    "linkGmap": [{"nom": "De Dépot Montbrison", "link": "https://www.google.fr/maps/dir/2TMC+-+Etablissement+secondaire,+ZAC+des+Granges,+28+Rue+des+Roseaux+Verts,+42600+Montbrison/45.4339689,4.4179925/45.4285023,4.4056153/45.4351264,4.3983581/@45.4319449,4.4040261,1082m/data=!3m1!1e3!4m11!4m10!1m5!1m1!1s0x47f4340534579605:0xbfa701469bb7b768!2m2!1d4.09101!2d45.5951009!1m0!1m0!1m0!3e0?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D"}],
+    "commentaire": ""
   }
 ]

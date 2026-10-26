@@ -40,7 +40,6 @@ async function loadDatas() {
       const name = document.createElement("p");
       name.textContent = data.libelle;
       div.appendChild(name);
-
       const number = document.createElement("a");
       number.href = `tel:${data.telephone}`;
       number.textContent = data.telephone;

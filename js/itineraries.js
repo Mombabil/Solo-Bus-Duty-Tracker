@@ -8,6 +8,13 @@ async function loadDatas() {
 
     const datas = await response.json();
 
+    // trie les datas par ordre alphabétique
+    datas.sort((a, b) =>
+      a.nom.localeCompare(b.nom, "fr", {
+        sensitivity: "base",
+      }),
+    );
+
     const scholarListRoad = document.querySelector(".scholarListRoad");
     const occasionalListRoad = document.querySelector(".occasionalListRoad");
 
