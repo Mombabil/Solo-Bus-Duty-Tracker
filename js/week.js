@@ -170,7 +170,7 @@ const createDayArticle = (day) => {
   const h3 = document.createElement("h3");
 
   h2.textContent = `${getNameOfDayFromDate(day.date)} ${day.date.slice(0, 5)}`;
-  h3.textContent = `${day.start} - ${day.end}`;
+  h3.textContent = `${day.start.slice(0, 5).replace(":", "h")} - ${day.end.slice(0, 5).replace(":", "h")}`;
 
   title.appendChild(h2);
   title.appendChild(h3);
