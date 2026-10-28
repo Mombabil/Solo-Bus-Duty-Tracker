@@ -172,6 +172,21 @@ body .container footer ul li svg {
   margin: 0 auto;
   padding: 24px 0 0 0;
   background: hsl(235, 40%, 45%);
+  position: relative;
+}
+.day .dayTitle .toggle-icon {
+  position: absolute;
+  top: 10%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+.day .dayTitle .toggle-icon svg {
+  width: 20px;
+  height: 20px;
 }
 .day .dayTitle h2, .day .dayTitle h3 {
   margin: 4px 0;
@@ -362,4 +377,19 @@ body .container footer ul li svg {
 }
 .day .dayRecap ul li .timeline .amp {
   background: hsl(12, 71%, 46%);
+}
+.day .day-toggle {
+  cursor: pointer;
+}
+.day .day-cachee {
+  display: none;
+}
+
+.day.ouvert .day-cachee {
+  display: block;
+}
+
+/* Rotation de la flèche quand la journée est ouverte */
+.day.ouvert .toggle-icon {
+  transform: translateY(-50%) rotate(180deg);
 }/*# sourceMappingURL=week.css.map */

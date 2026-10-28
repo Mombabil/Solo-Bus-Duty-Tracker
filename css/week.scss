@@ -50,6 +50,22 @@
         margin: 0 auto;
         padding: 24px 0 0 0;
         background: $border-soft;
+        position: relative;
+        .toggle-icon {
+            position: absolute;
+            top: 10%;
+            right: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            }
+
+            .toggle-icon svg {
+            width: 20px;
+            height: 20px;
+            }
         h2, h3{
             margin: 4px 0;
             text-align: center;
@@ -245,4 +261,17 @@
                     }
                 }
             }
+    .day-toggle {
+        cursor: pointer;
+    }
+    .day-cachee{
+        display: none;
+    }
+}
+.day.ouvert .day-cachee{
+    display: block;
+}
+/* Rotation de la flèche quand la journée est ouverte */
+.day.ouvert .toggle-icon {
+  transform: translateY(-50%) rotate(180deg);
 }

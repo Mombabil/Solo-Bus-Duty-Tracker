@@ -146,6 +146,24 @@ const createDayArticle = (day) => {
   // on crée les balises du titre
   const title = document.createElement("section");
   title.classList.add("dayTitle");
+  title.classList.add("day-toggle");
+
+  const toggleIcon = document.createElement("span");
+  toggleIcon.classList.add("toggle-icon");
+  toggleIcon.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 24 24"
+       aria-hidden="true">
+    <path d="m6 9 6 6 6-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </svg>
+`;
+
+  title.appendChild(toggleIcon);
 
   // on crée les 2 titres
   const h2 = document.createElement("h2");
@@ -191,6 +209,7 @@ const createDayArticle = (day) => {
   // on crée les details de la journée
   const detail = document.createElement("section");
   detail.classList.add("dayDetail");
+  detail.classList.add("day-cachee");
 
   // on crée chaque detail de la journée
   day.datas.forEach((data) => {
@@ -282,6 +301,7 @@ const createDayArticle = (day) => {
   // .dayRecap
   const recap = document.createElement("section");
   recap.classList.add("dayRecap");
+  recap.classList.add("day-cachee");
 
   const ul = document.createElement("ul");
 
@@ -357,6 +377,18 @@ currentDate.addEventListener("change", (e) => {
 
   // mettre à jour l'affichage selon la semaine choisie
   render(Number(selectedWeek));
+});
+
+daysContainer.addEventListener("click", (e) => {
+  const toggle = e.target.closest(".day-toggle");
+
+  if (!toggle) return;
+
+  const article = toggle.closest(".day");
+
+  if (!article) return;
+
+  article.classList.toggle("ouvert");
 });
 
 // passage du mode lecture au mode edit des datas
