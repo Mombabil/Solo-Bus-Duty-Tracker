@@ -59,6 +59,7 @@ const addDay = () => {
       id: Date.now(),
       date: today.toLocaleDateString("fr-FR"),
       week: getCurrentWeek(today),
+      month: today.getMonth(),
       start: now,
       end: "",
       amplitude: "",
