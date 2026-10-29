@@ -135,6 +135,7 @@ const getDayAmplitude = (datas) => {
   return toHHMM(calcAmp(minStart, maxEnd));
 };
 
+let jourOuvertId = null;
 // LE RENDER
 // .dayRecap dans une fonction pour alléger le render()
 const createDayArticle = (day) => {
@@ -147,6 +148,13 @@ const createDayArticle = (day) => {
   const title = document.createElement("section");
   title.classList.add("dayTitle");
   title.classList.add("day-toggle");
+
+  // un event permet d'ouvrir ou fermer les journée au clic
+  title.addEventListener("click", () => {
+    article.classList.toggle("ouvert");
+
+    jourOuvertId = article.classList.contains("ouvert") ? day.id : null;
+  });
 
   const toggleIcon = document.createElement("span");
   toggleIcon.classList.add("toggle-icon");
@@ -362,8 +370,14 @@ const render = (week) => {
   daysOfSelectedWeek.forEach((day) => {
     // la journée en cours n'apparait que lorsqu'elle est terminée
     if (day.isFinished) {
-      // on ajoute la totalité dans fragmentDay
-      fragmentDay.appendChild(createDayArticle(day));
+      const article = createDayArticle(day);
+
+      // on garde les journées ouvertes enregistré au moment du rerender
+      if (day.id === jourOuvertId) {
+        article.classList.add("ouvert");
+      }
+
+      fragmentDay.appendChild(article);
     }
   });
 
@@ -377,18 +391,6 @@ currentDate.addEventListener("change", (e) => {
 
   // mettre à jour l'affichage selon la semaine choisie
   render(Number(selectedWeek));
-});
-
-daysContainer.addEventListener("click", (e) => {
-  const toggle = e.target.closest(".day-toggle");
-
-  if (!toggle) return;
-
-  const article = toggle.closest(".day");
-
-  if (!article) return;
-
-  article.classList.toggle("ouvert");
 });
 
 // passage du mode lecture au mode edit des datas
