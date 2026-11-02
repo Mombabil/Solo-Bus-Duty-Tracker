@@ -65,3 +65,34 @@ export const getTotalsByType = (datas) => {
 
   return totals;
 };
+
+// calcul du total des semaines
+export const calculateWeekTotals = (days) => {
+  const totals = {
+    work: 0,
+    waiting: 0,
+    tte: 0,
+    overrunAmp: 0,
+  };
+
+  days.forEach((day) => {
+    totals.work += timeToMinutes(day.totals.work);
+    totals.waiting += timeToMinutes(day.totals.waiting);
+    totals.tte +=
+      timeToMinutes(day.totals.work) + timeToMinutes(day.totals.waiting);
+
+    const overrun =
+      timeToMinutes(day.amplitude) > 720
+        ? timeToMinutes(day.amplitude) % 720
+        : 0;
+
+    totals.overrunAmp += overrun;
+  });
+
+  return {
+    work: toHHMM(totals.work),
+    waiting: toHHMM(totals.waiting),
+    tte: toHHMM(totals.tte),
+    overrunAmp: toHHMM(totals.overrunAmp),
+  };
+};

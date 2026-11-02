@@ -150,6 +150,63 @@ body .container footer ul li svg {
   font-family: "Inter", sans-serif;
 }
 
+.weekRecap h3 {
+  text-align: center;
+  color: hsl(46, 91%, 50%);
+}
+.weekRecap ul {
+  max-width: 90%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+.weekRecap ul .type {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 30px;
+  border-bottom: 1px solid hsl(235, 40%, 45%);
+}
+.weekRecap ul .type .title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+}
+.weekRecap ul .type .title h3 {
+  margin: 0;
+  font-size: 0.8em;
+  color: hsl(0, 0%, 100%);
+}
+.weekRecap ul .type .title .color {
+  width: 15px;
+  height: 15px;
+}
+.weekRecap ul .type .title .work {
+  background: hsl(208, 77%, 51%);
+}
+.weekRecap ul .type .title .waiting {
+  background: hsl(46, 91%, 50%);
+}
+.weekRecap ul .type .title .total {
+  background: linear-gradient(135deg, hsl(208, 77%, 51%) 50%, hsl(46, 91%, 50%) 50%);
+}
+.weekRecap ul .type .title .amplitude {
+  background: hsl(12, 71%, 46%);
+}
+.weekRecap ul .type p {
+  font-size: 0.7em;
+  font-family: "Orbitron", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: hsl(210, 30%, 85%);
+}
+.weekRecap ul .type .time {
+  justify-content: flex-end;
+}
+
 .daysContainer {
   display: flex;
   flex-direction: column;
@@ -188,7 +245,8 @@ body .container footer ul li svg {
   width: 20px;
   height: 20px;
 }
-.day .dayTitle h2, .day .dayTitle h3 {
+.day .dayTitle h2,
+.day .dayTitle h3 {
   margin: 4px 0;
   text-align: center;
   font-family: "Orbitron", sans-serif;
@@ -325,7 +383,8 @@ body .container footer ul li svg {
   pointer-events: none;
   touch-action: manipulation;
 }
-.day .dayDetail .type .time .editable-start, .day .dayDetail .type .time .editable-end {
+.day .dayDetail .type .time .editable-start,
+.day .dayDetail .type .time .editable-end {
   width: 67px;
 }
 .day .dayDetail .type .time .error {

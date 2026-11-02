@@ -15,8 +15,10 @@ import {
   toHHMM,
   calcAmp,
   getTotalsByType,
+  timeToMinutes,
+  calculateWeekTotals,
 } from "./utils/datasFormating.js";
-import { getDays, saveDays } from "./utils/storage.js";
+import { getDays, saveDays, saveWeeks } from "./utils/storage.js";
 import { animateLoader, finishLoader, loaderError } from "./utils/loader.js";
 
 // SELECTION DES BALISES
@@ -34,7 +36,7 @@ const hidden = document.querySelector(".hidden");
 const msgEndOfDay = document.querySelector(".endOfDay");
 
 // LE STATE
-const state = { days: [] };
+const state = { days: [], weeks: [] };
 
 // setState MODIFIÉ
 const setState = (newState) => {
@@ -44,9 +46,53 @@ const setState = (newState) => {
   };
 
   state.days = updatedState.days;
+  state.weeks = updatedState.weeks;
 
   render();
 };
+
+// Ajout des fonctions de calculs des temps d'activités totaux de la semaine -----
+const addWeek = (day) => {
+  const existingWeek = state.weeks.find((week) => {
+    week.week === day.week && week.year === day.year;
+  });
+
+  let updatedWeeks;
+
+  if (existingWeek) {
+    updatedWeeks = state.weeks.map((week) => {
+      if (week.id === existingWeek.id) {
+        const workingDays = [
+          ...week.workingDays.filter((workingDay) => {
+            workingDay.id !== day.id;
+          }, day),
+        ];
+
+        return {
+          ...week,
+          workingDays,
+          totals: calculateWeekTotals(workingDays),
+        };
+      }
+    });
+  } else {
+    updatedWeeks = [
+      ...state.weeks,
+      {
+        id: Date.now(),
+        week: day.week,
+        month: day.month,
+        year: day.year,
+        workingDays: [day],
+        totals: calculateWeekTotals([day]),
+      },
+    ];
+  }
+
+  saveWeeks(updatedWeeks);
+  setState({ weeks: updatedWeeks });
+};
+// ----- Ajout des fonctions de calculs des temps d'activités totaux de la semaine
 
 // LES FONCTIONS DE MANIPULATION DU STATE
 const addDay = () => {
@@ -60,6 +106,7 @@ const addDay = () => {
       date: today.toLocaleDateString("fr-FR"),
       week: getCurrentWeek(today),
       month: today.getMonth(),
+      year: today.getFullYear(),
       start: now,
       end: "",
       amplitude: "",
@@ -170,6 +217,9 @@ const endData = () => {
   setState({ days: newDays });
 
   saveDays(newDays);
+
+  // on transmet la journée terminée
+  addWeek(updatedDay);
 };
 
 // LES FONCTIONS DE DATAS

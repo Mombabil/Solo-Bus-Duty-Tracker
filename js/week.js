@@ -6,15 +6,24 @@ import {
   toHHMM,
   calcAmp,
   getTotalsByType,
+  calculateWeekTotals,
 } from "./utils/datasFormating.js";
 // LE STATE (côté serveur)
-import { getDays, saveDays } from "./utils/storage.js";
+import { getDays, saveDays, getWeeks, saveWeeks } from "./utils/storage.js";
 
+const weekRecapContainer = document.querySelector(".weekRecap");
 const daysContainer = document.querySelector(".daysContainer");
 const currentDate = document.getElementById("currentDate");
 
+const weekRecapList = document.querySelector(".weekRecapList");
+
+const driveTime = weekRecapList.querySelector(".drive .time");
+const waitingTime = weekRecapList.querySelector(".waiting .time");
+const totalWorkTime = weekRecapList.querySelector(".work .time");
+const overrunTime = weekRecapList.querySelector(".ampl .time");
+
 // LE STATE (côté front)
-const state = { days: [] };
+const state = { days: [], weeks: [] };
 
 const setState = (newState) => {
   const updatedState = {
@@ -23,8 +32,10 @@ const setState = (newState) => {
   };
 
   state.days = updatedState.days;
+  state.weeks = updatedState.weeks;
 
   saveDays(state.days);
+  saveWeeks(state.weeks);
 
   render(Number(currentDate.value));
 };
@@ -61,6 +72,8 @@ const createListOfWeeks = (defaultWeek) => {
     currentDate.appendChild(opt);
   });
 };
+
+// Creation de l'affichage des journées -----
 
 // LA TIMELINE
 // on crée une fonction qui transforme une durée d'activité en % pour créer une timeline sur 24h
@@ -120,8 +133,28 @@ const editData = (dayId, dataId, dataStart, dataEnd) => {
     };
   });
 
+  // on récupère la journée modifiée
+  const updatedDay = newDays.find((day) => day.id === dayId);
+
+  // on actualise seulement la semaine concernée
+  const updatedWeeks = state.weeks.map((week) => {
+    if (week.week !== updatedDay.week || week.year !== updatedDay.year) {
+      return week;
+    }
+
+    const workingDays = week.workingDays.map((day) =>
+      day.id === updatedDay.id ? updatedDay : day,
+    );
+
+    return {
+      ...week,
+      workingDays,
+      totals: calculateWeekTotals(workingDays),
+    };
+  });
+
   // on ne modifie que la partie du state qu'on veut changer
-  setState({ days: newDays });
+  setState({ days: newDays, weeks: updatedWeeks });
 };
 const getDayAmplitude = (datas) => {
   if (datas.length === 0) return "00:00";
@@ -354,6 +387,23 @@ const render = (week) => {
   // on recupere toutes les journées qui ont la même semaine que la semaine en cours
   const daysOfSelectedWeek = state.days.filter((day) => day.week === week);
 
+  // weekRecapContainer -----
+  const selectedWeek = state.weeks.find((w) => w.week === week);
+
+  if (selectedWeek) {
+    driveTime.textContent = selectedWeek.totals.work.replace(":", "h");
+    waitingTime.textContent = selectedWeek.totals.waiting.replace(":", "h");
+    totalWorkTime.textContent = selectedWeek.totals.tte.replace(":", "h");
+    overrunTime.textContent = selectedWeek.totals.overrunAmp.replace(":", "h");
+  } else {
+    driveTime.textContent = "00h00";
+    waitingTime.textContent = "00h00";
+    totalWorkTime.textContent = "00h00";
+    overrunTime.textContent = "00h00";
+  }
+  // ----- weekRecapContainer
+
+  // daysContainer -----
   daysContainer.innerHTML = "";
 
   const fragmentDay = document.createDocumentFragment();
@@ -382,6 +432,7 @@ const render = (week) => {
   });
 
   daysContainer.appendChild(fragmentDay);
+  // ----- daysContainer
 };
 
 // LES EVENTS LISTENER
@@ -428,11 +479,16 @@ daysContainer.addEventListener("click", (e) => {
   render(Number(currentDate.value));
 });
 
+// ----- Creation de l'affichage des journées
+
 // INITIALISATION
 function init() {
   try {
     const days = getDays();
+    const weeks = getWeeks();
+
     state.days = days;
+    state.weeks = weeks;
   } catch (error) {
     console.error("Erreur lors du chargement des données");
   }
