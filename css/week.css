@@ -161,7 +161,9 @@ body .container footer ul li svg {
   padding: 24px 0;
 }
 .weekRecap ul .type {
-  display: flex;
+  display: grid;
+  grid-template-columns: 5% 65% 20%;
+  justify-content: space-between;
   align-items: center;
   gap: 12px;
   height: 30px;

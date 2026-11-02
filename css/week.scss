@@ -42,7 +42,9 @@
         margin: 0 auto;
         padding: 24px 0;
         .type {
-            display: flex;
+            display: grid;
+            grid-template-columns: 5% 65% 20%;
+            justify-content: space-between;
             align-items: center;
             gap: 12px;
             height: 30px;
