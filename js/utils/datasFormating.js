@@ -66,6 +66,28 @@ export const getTotalsByType = (datas) => {
   return totals;
 };
 
+// fonction pour le storage de la semaine
+export const groupDaysByWeeks = (days) => {
+  const weeks = {};
+
+  days.forEach((day) => {
+    const weekId = `${day.year}-W${String(day.week).padStart(2, "0")}`;
+
+    if (!weeks[weekId]) {
+      weeks[weekId] = {
+        weekId: weekId,
+        year: day.year,
+        week: day.week,
+        days: [],
+      };
+    }
+
+    weeks[weekId].days.push(day);
+  });
+
+  return weeks;
+};
+
 // calcul du total des semaines
 export const calculateWeekTotals = (days) => {
   const totals = {

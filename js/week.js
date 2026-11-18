@@ -6,12 +6,12 @@ import {
   toHHMM,
   calcAmp,
   getTotalsByType,
+  groupDaysByWeeks,
   calculateWeekTotals,
 } from "./utils/datasFormating.js";
 // LE STATE (côté serveur)
 import { getDays, saveDays, getWeeks, saveWeeks } from "./utils/storage.js";
 
-const weekRecapContainer = document.querySelector(".weekRecap");
 const daysContainer = document.querySelector(".daysContainer");
 const currentDate = document.getElementById("currentDate");
 
@@ -32,12 +32,34 @@ const setState = (newState) => {
   };
 
   state.days = updatedState.days;
-  state.weeks = updatedState.weeks;
+  state.weeks = updateWeeklyStorage(state.days);
 
   saveDays(state.days);
   saveWeeks(state.weeks);
 
   render(Number(currentDate.value));
+};
+
+// creation du storage des semaines
+const updateWeeklyStorage = (days) => {
+  // 1. Récupération des journées
+  // 2. Regroupement par semaine
+  const groupedWeeks = groupDaysByWeeks(days);
+
+  // 3. Transformation en tableau et tri chronologique
+  const weeklyData = Object.values(groupedWeeks).sort(
+    (a, b) => a.year - b.year || a.week - b.week,
+  );
+
+  // 4. Calcul des totaux de chaques semaines
+  weeklyData.forEach((week) => {
+    week.totals = calculateWeekTotals(week.days);
+  });
+
+  // 5. Enregistrement dans le localStorage
+  saveWeeks(weeklyData);
+
+  return weeklyData;
 };
 
 // SELECTION DE LA SEMAINE A AFFICHER
@@ -136,25 +158,8 @@ const editData = (dayId, dataId, dataStart, dataEnd) => {
   // on récupère la journée modifiée
   const updatedDay = newDays.find((day) => day.id === dayId);
 
-  // on actualise seulement la semaine concernée
-  const updatedWeeks = state.weeks.map((week) => {
-    if (week.week !== updatedDay.week || week.year !== updatedDay.year) {
-      return week;
-    }
-
-    const workingDays = week.workingDays.map((day) =>
-      day.id === updatedDay.id ? updatedDay : day,
-    );
-
-    return {
-      ...week,
-      workingDays,
-      totals: calculateWeekTotals(workingDays),
-    };
-  });
-
   // on ne modifie que la partie du state qu'on veut changer
-  setState({ days: newDays, weeks: updatedWeeks });
+  setState({ days: newDays });
 };
 const getDayAmplitude = (datas) => {
   if (datas.length === 0) return "00:00";
@@ -484,11 +489,8 @@ daysContainer.addEventListener("click", (e) => {
 // INITIALISATION
 function init() {
   try {
-    const days = getDays();
-    const weeks = getWeeks();
-
-    state.days = days;
-    state.weeks = weeks;
+    state.days = getDays();
+    state.weeks = updateWeeklyStorage(state.days);
   } catch (error) {
     console.error("Erreur lors du chargement des données");
   }
