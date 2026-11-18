@@ -43,8 +43,10 @@ const setState = (newState) => {
 // creation du storage des semaines
 const updateWeeklyStorage = (days) => {
   // 1. Récupération des journées
+  const finishedDays = days.filter((day) => day.isFinished);
+
   // 2. Regroupement par semaine
-  const groupedWeeks = groupDaysByWeeks(days);
+  const groupedWeeks = groupDaysByWeeks(finishedDays);
 
   // 3. Transformation en tableau et tri chronologique
   const weeklyData = Object.values(groupedWeeks).sort(
